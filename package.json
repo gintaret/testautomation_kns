@@ -1,0 +1,25 @@
+{
+  "name": "testautomation_kns",
+  "version": "1.0.0",
+  "description": "Pakeitimas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gintaret/testautomation_kns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gintaret/testautomation_kns/issues"
+  },
+  "homepage": "https://github.com/gintaret/testautomation_kns#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.13.1"
+  },
+  "dependencies": {
+    "experimental-allure-playwright": "^0.0.3"
+  }
+}
