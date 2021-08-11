@@ -17,6 +17,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumInt => {
     test(`${buildSumInt} build to check if calculating sum of integers`, async () => {
+      // await startPage.actions(buildSumInt, '1', '2', 'Add');
       await startPage.selectBuild(buildSumInt);
       await startPage.fillInFields('1', '2');
       await startPage.selectOperationAndCalculate('Add');
@@ -27,33 +28,18 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumPositive => {
     test.only(`${buildSumPositive} build to check if calculating sum of real positive numbers`, async () => {
-      await startPage.selectBuild(buildSumPositive);
-      await startPage.fillInFields('0.00000001', '0.00000001');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumPositive, '0.00000001', '0.00000001', 'Add');
+      // await startPage.selectBuild(buildSumPositive);
+      // await startPage.fillInFields('0.00000001', '0.00000001');
+      // await startPage.selectOperationAndCalculate('Add');
       const result = await resultsPage.getResult();
       expect(result).toEqual('2e-8');
     });
   });
 
-  // async actions (build, value1, value2, action) {
-  //   await startPage.selectBuild(build);
-  //   await startPage.fillInFields(value1, value2);
-  //   await startPage.selectOperationAndCalculate(action);
-  //   const result = await resultsPage.getResult();
-  // }
-
-  // prototype.forEach(buildSumPositive => {
-  //   test.only(`${buildSumPositive} build to check if calculating sum of real positive numbers`, async () => {
-  //     await page.actions (buildSumPositive, '0.00000001', '0.00000001', 'Add');
-  //       expect(result).toEqual('2e-8');
-  //   });
-  // });
-
   prototype.forEach(buildSumOnlyInt => {
     test(`${buildSumOnlyInt} build to check if calculating sum when result must be integer`, async () => {
-      await startPage.selectBuild(buildSumOnlyInt);
-      await startPage.fillInFields('1.2', '2.7');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumOnlyInt, '1.2', '2.7', 'Add');
       await page.click('#integerSelect');
       const result = await resultsPage.getResult();
       expect(result).toEqual('3');
@@ -62,9 +48,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumNegative => {
     test.only(`${buildSumNegative} build to check if calculating sum of negative real numbers`, async () => {
-      await startPage.selectBuild(buildSumNegative);
-      await startPage.fillInFields('-0.0000001', '-0.0000001');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumNegative, '-0.0000001', '-0.0000001', 'Add');
       const result = await resultsPage.getResult();
       expect(result).toEqual('-2e-7');
     });
@@ -72,9 +56,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumComma1 => {
     test(`${buildSumComma1} build to check when number 1 is with comma, then not summed up`, async () => {
-      await startPage.selectBuild(buildSumComma1);
-      await startPage.fillInFields('2,5', '2');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumComma1, '2,5', '2', 'Add');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Number 1 is not a number');
     });
@@ -82,9 +64,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumComma2 => {
     test(`${buildSumComma2} build to check when number 2 is with comma, then not summed up`, async () => {
-      await startPage.selectBuild(buildSumComma2);
-      await startPage.fillInFields('2', '2,5');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumComma2, '2', '2,5', 'Add');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Number 2 is not a number');
     });
@@ -92,9 +72,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumCommaBoth => {
     test(`${buildSumCommaBoth} build to check when both numbers are with comma, they are not summed up`, async () => {
-      await startPage.selectBuild(buildSumCommaBoth);
-      await startPage.fillInFields('1,5', '2,5');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumCommaBoth, '1,5', '2,5', 'Add');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Number 1 is not a number');
     });
@@ -102,9 +80,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSumEmpty => {
     test(`${buildSumEmpty} build to check when "First number" and "Second number" fields are empty and they are not summed up`, async () => {
-      await startPage.selectBuild(buildSumEmpty);
-      await startPage.fillInFields('', '');
-      await startPage.selectOperationAndCalculate('Add');
+      await startPage.actions(buildSumEmpty, '', '', 'Add');
       const result = await resultsPage.getResult();
       expect(result).toEqual('0');
     });
@@ -112,9 +88,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSubtractNegative => {
     test.only(`${buildSubtractNegative} build to check if negative real numbers subtract is calculating`, async () => {
-      await startPage.selectBuild(buildSubtractNegative);
-      await startPage.fillInFields('-0.0000001', '-0.0000002');
-      await startPage.selectOperationAndCalculate('Subtract');
+      await startPage.actions(buildSubtractNegative, '-0.0000001', '-0.0000002', 'Subtract');
       const result = await resultsPage.getResult();
       expect(result).toEqual('1e-7');
     });
@@ -122,9 +96,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildSubtractPositive => {
     test.only(`${buildSubtractPositive} build to check if positive real numbers subtract is calculating`, async () => {
-      await startPage.selectBuild(buildSubtractPositive);
-      await startPage.fillInFields('0.00000002', '0.00000001');
-      await startPage.selectOperationAndCalculate('Subtract');
+      await startPage.actions(buildSubtractPositive, '0.00000002', '0.00000001', 'Subtract');
       const result = await resultsPage.getResult();
       expect(result).toEqual('1e-8');
     });
@@ -132,9 +104,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildMultiply => {
     test(`${buildMultiply} build to check if not multiply when characters exceed the allowed number`, async () => {
-      await startPage.selectBuild(buildMultiply);
-      await startPage.fillInFields('12345678901', '10');
-      await startPage.selectOperationAndCalculate('Multiply');
+      await startPage.actions(buildMultiply, '12345678901', '10', 'Multiply');
       const result = await resultsPage.getResult();
       expect(result).toEqual('12345678900');
     });
@@ -142,9 +112,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildMultiplySymbols => {
     test.only(`${buildMultiplySymbols} build to check if not multiply when both numbers are symbols`, async () => {
-      await startPage.selectBuild(buildMultiplySymbols);
-      await startPage.fillInFields('<>', '<>');
-      await startPage.selectOperationAndCalculate('Multiply');
+      await startPage.actions(buildMultiplySymbols, '<>', '<>', 'Multiply');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Number 1 is not a number');
     });
@@ -152,9 +120,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildDivideZero => {
     test(`${buildDivideZero} build to check if dividing by zero is not possible`, async () => {
-      await startPage.selectBuild(buildDivideZero);
-      await startPage.fillInFields('1', '0');
-      await startPage.selectOperationAndCalculate('Divide');
+      await startPage.actions(buildDivideZero, '1', '0', 'Divide');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Divide by zero error!');
     });
@@ -162,9 +128,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildDivideLetters => {
     test(`${buildDivideLetters} build to check if letters dividing is not possible`, async () => {
-      await startPage.selectBuild(buildDivideLetters);
-      await startPage.fillInFields('a', 'b');
-      await startPage.selectOperationAndCalculate('Divide');
+      await startPage.actions(buildDivideLetters, 'a', 'b', 'Divide');
       const errorMessage = await resultsPage.getErrorMessage();
       expect(errorMessage).toContain('Number 1 is not a number');
     });
@@ -172,9 +136,7 @@ test.describe('Calculator test suite', () => {
 
   prototype.forEach(buildConcatenate => {
     test(`${buildConcatenate} build to check if number with letter concatenating`, async () => {
-      await startPage.selectBuild(buildConcatenate);
-      await startPage.fillInFields('9', 'a');
-      await startPage.selectOperationAndCalculate('Concatenate');
+      await startPage.actions(buildConcatenate, '9', 'a', 'Concatenate');
       const result = await resultsPage.getResult();
       expect(result).toEqual('9a');
     });

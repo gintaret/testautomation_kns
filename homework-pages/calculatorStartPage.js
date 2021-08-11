@@ -27,8 +27,14 @@ exports.CalculatorStartPage = class CalculatorStartPage {
     }
 
     async selectOperationAndCalculate(operation) {
-      await this.page.click(operationDropdown);
-      await this.page.selectOption(operationDropdownSelection, { label: operation });
-      await this.page.click(calculateButton);
+        await this.page.click(operationDropdown);
+        await this.page.selectOption(operationDropdownSelection, { label: operation });
+        await this.page.click(calculateButton);
+    }
+
+    async actions(buildType, value1, value2, operation) {
+        await this.selectBuild(buildType);
+        await this.fillInFields(value1, value2);
+        await this.selectOperationAndCalculate(operation);
     }
 }
