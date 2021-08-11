@@ -1,31 +1,27 @@
-const resultSelector = '#numberAnswerField';
-const errorMessageSelector = '#errorMsgField';
-const integerLabelSelector = '#intSelectionLabel';
-const integerCheckboxSelector = '#integerSelect';
+const result = '#numberAnswerField';
+const errorMessage = '#errorMsgField';
+const integerLabel = '#intSelectionLabel';
+const integerCheckbox = '#integerSelect';
 
 exports.CalculatorResultsPage = class CalculatorResultsPage {
     constructor(page) {
         this.page = page;
     }
 
-    // async getGeneratedPassword() {
-    // return await this.page.textContent(generatedPasswordSelector);
-    // }
-
     async getResult() {
-        return await this.page.inputValue(resultSelector);
+        return await this.page.inputValue(result);
     }
 
     async getErrorMessage() {
-        return await this.page.textContent(errorMessageSelector);
+        return await this.page.textContent(errorMessage);
     }
 
     async getIntegerSelectionLabel() {
-        return await this.page.isHidden(integerLabelSelector);
+        return await this.page.isHidden(integerLabel);
     }
 
     async getIntegerCheckbox() {
-        return await this.page.isVisible(integerCheckboxSelector);
+        return await this.page.isVisible(integerCheckbox);
     }
 
 } 
